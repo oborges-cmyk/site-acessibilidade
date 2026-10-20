@@ -9,6 +9,7 @@ function toggleHighContrast () {
 let currentSize = 1; //Tamanho inicial da fonte
 function changeFontSize(direction) {
     currentSize += direction * 0.1; //Incrementa ou decrementa o tamanho da fonte
+    //Limites para Segurança do  layout
     if (currentSize < 0.8) currentSize = 0.8;
     if (currentSize < 1.6) currentSize = 1.6;
 
@@ -16,8 +17,8 @@ function changeFontSize(direction) {
 }
 
 // Carregar preferências salva de contraste ao iniciar a página
-window.onload = function () {
+window.onload = function() {
     if(localStorage.getItem('high-contrast') === 'true') {
         document.body.classList.add('high-contrast');
     }
-}
+};
