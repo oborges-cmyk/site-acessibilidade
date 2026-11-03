@@ -135,6 +135,32 @@ input, textarea, select {
     color: var(--text-color);
 }
 
+.destaques {
+    background-color: #f0f8ff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.destaques h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.destaques ul {
+    list-style: none;
+    padding: 0;
+}
+
+.destaques li {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 5px 0;
+}
+
 button.submit-btn {
     background-color: var(--primary-color);
     color: #ffffff;
