@@ -51,10 +51,101 @@
             </ul>
         </section>
 
+         <!-- ================= PLANOS (PRICING SIMPLES) ================= -->
+  <section id="planos" class="py-20 bg-slate-900 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-black uppercase tracking-widest text-brand-yellow">Planos Flexíveis</span>
+        <h2 class="font-black text-3xl sm:text-5xl text-white mt-2">Escolha o seu plano</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">Sem contratos de fidelidade. Altere quando quiser.</p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Plano Start -->
+        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-7 flex flex-col justify-between hover:border-brand-cyan transition-all">
+          <div>
+            <h3 class="font-extrabold text-2xl text-white">Start</h3>
+            <p class="text-slate-400 text-xs mt-1">Para autônomos e iniciantes.</p>
+            
+            <div class="my-6">
+              <span class="text-3xl font-black text-brand-cyan">R$ 500</span>
+              <span class="text-slate-400 text-xs">/mês</span>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Até 3 projetos simultâneos</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Suporte via E-mail</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Relatórios básicos</li>
+              </ul>
+            </div>
+  
+            <button onclick="assinarPlano('Start')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 font-extrabold text-xs uppercase tracking-wider text-white transition-colors">
+              Assinar Start
+            </button>
+          </div>
+  
+          <!-- Plano Ultra (Destaque Magenta) -->
+          <div class="rounded-2xl bg-slate-950 border-2 border-brand-magenta p-7 flex flex-col justify-between shadow-glow-magenta relative transform md:-translate-y-2">
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-brand-magenta text-white font-black text-[10px] uppercase tracking-wider">
+              Mais Popular
+            </span>
+  
+            <div>
+              <h3 class="font-extrabold text-2xl text-white">Ultra</h3>
+              <p class="text-slate-400 text-xs mt-1">Para pequenas e médias equipes.</p>
+              
+              <div class="my-6">
+                <span class="text-4xl font-black text-brand-magenta">R$ 1.500</span>
+                <span class="text-slate-400 text-xs">/mês</span>
+              </div>
+  
+              <ul class="space-y-3 text-xs text-slate-200 border-t border-slate-800 pt-5">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Projetos ilimitados</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Suporte VIP 24/7</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Acesso total às APIs</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Relatórios avançados</li>
+              </ul>
+            </div>
+  
+            <button onclick="assinarPlano('Ultra')" class="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-purple hover:brightness-110 font-black text-xs uppercase tracking-wider text-white shadow-md transition-all">
+              Assinar Ultra
+            </button>
+          </div>
+
+          !-- Plano Mega -->
+        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-7 flex flex-col justify-between hover:border-brand-yellow transition-all">
+          <div>
+            <h3 class="font-extrabold text-2xl text-white">Mega</h3>
+            <p class="text-slate-400 text-xs mt-1">Para empresas em expansão.</p>
+            
+            <div class="my-6">
+              <span class="text-3xl font-black text-brand-yellow">R$ 1.000</span>
+              <span class="text-slate-400 text-xs">/mês</span>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Até 15 projetos ativos</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Atendimento dedicado</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Integrações customizadas</li>
+            </ul>
+          </div>
+
+          <button onclick="assinarPlano('Mega')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-brand-yellow hover:text-slate-950 font-extrabold text-xs uppercase tracking-wider text-white transition-colors">
+            Assinar Mega
+          </button>
+        </div>
+    </div>
+
+</div>
+</section>
+
          <!-- Seção do Blog -->
         <section class="blog">
-            <img src="https://conube.com.br/blog/as-7-melhores-ferramentas-para-desenvolvedores-web/" alt="Imagem ilustrativa."
-            class="card-img">>
+            <img src="as-7-melhores-ferramentas-para-desenvolvedores-web-1.jpg"
+            class="card-img">
         <h6> Saiba quais as ferramentas mais úteis para desenvolvedores. </h6>
         <p> Listamos algumas das ferramentas para turbinar seus trabalho e seus estudos.</p>
         </section>

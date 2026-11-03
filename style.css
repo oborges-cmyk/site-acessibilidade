@@ -20,14 +20,13 @@
         --focus-outline: #ffff00;
     }
 
+/* Fundo geral da interface */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: #1a1a1a; /* Cinza escuro */
+    color: #ffffff; /* Texto branco */
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
-    font-size: 1rem;
     transition: background 0.3s, color 0.3s;
 }
 
@@ -61,12 +60,25 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
         background-color: #555555;
     }
 
-/* Layout do cabeçalho e navegação */
+/* Cabeçalho */
 header {
-    background-color: var(--primary-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1.5rem 1rem;
+    background-color: #007bff; /* Azul forte */
+    color: #ffffff;
+    padding: 15px;
     text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    color: #ff5733; /* Laranja vibrante */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffe600; /* Amarelo vibrante */
 }
 
 nav ul {
@@ -96,13 +108,14 @@ main {
     padding: 0 1rem;
      }
 
+/* Seções */
 section {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background-color: #444444; /* Cinza médio */
+    padding: 20px;
+    margin: 20px 0;
     border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    }
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
 
 h1, h2 {
     color: var(--primary-color);
@@ -126,28 +139,55 @@ label {
     font-weight: bold;
 }
 
-input, textarea, select {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+input:focus, select:focus, textarea:focus {
+    outline: 3px solid #ff5733; /* Laranja vibrante */
+    outline-offset: 2px;
 }
 
+/* Inputs e campos de formulário */
+input, select, textarea {
+    background-color: #333333; /* Cinza escuro */
+    color: #ffffff;
+    border: 1px solid #555555;
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    /* Custom Vivid Gradients and Accents */
+    .bg-vivid-gradient {
+        background: linear-gradient(135deg, #0b0f19 0%, #1e1035 50%, #0b0f19 100%);
+      }
+  
+      .border-gradient-pink {
+        border-image: linear-gradient(to right, #ff007f, #7c3aed) 1;
+      }
+  
+      /* Subtle float animation */
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+      }
+      .animate-float {
+        animation: float 3.5s ease-in-out infinite;
+      }
+
+/* Estilo para a seção de destaques */
 .destaques {
-    background-color: #f0f8ff;
+    background-color: #ff5733; /* Laranja vibrante */
     padding: 20px;
     margin: 20px 0;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .destaques h2 {
-    font-size: 1.8rem;
-    color: #333;
+    font-size: 2rem;
+    color: #ffffff; /* Branco */
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .destaques ul {
@@ -156,9 +196,47 @@ input, textarea, select {
 }
 
 .destaques li {
+    font-size: 1.4rem;
+    color: #ffe600; /* Amarelo vibrante */
+    margin: 10px 0;
+}
+
+/* Botão */
+button {
+    background-color: #007bff; /* Azul forte */
+    color: #ffffff; /* Branco */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Azul escuro */
+    color: #ffe600; /* Amarelo vibrante */
+}
+
+/* Seção do Blog */
+.blog {
+    background-color: #28a745; /* Verde forte */
+    padding: 20px;
+    border-radius: 8px;
+    color: #ffffff; /* Branco */
+    text-align: center;
+}
+
+.blog h6 {
+    font-size: 1.5rem;
+    color: #ff5733; /* Laranja vibrante */
+    margin-bottom: 10px;
+}
+
+.blog p {
     font-size: 1.2rem;
-    color: #555;
-    margin: 5px 0;
+    color: #ffe600; /* Amarelo vibrante */
 }
 
 button.submit-btn {
@@ -178,9 +256,9 @@ button.submit-btn:hover {
 
 /* Rodapé */
 footer {
+    background-color: #333333; /* Cinza escuro */
+    color: #ffffff;
     text-align: center;
-    padding: 1.5rem;
-    background-color: var(--card-bg);
-    border-top: 2px solid var(--border-color);
+    padding: 10px;
     font-size: 0.9rem;
 }
