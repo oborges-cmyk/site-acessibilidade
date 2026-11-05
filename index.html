@@ -3,192 +3,834 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Incluso - Projeto de Acessibilidade</title>
-    <link rel="stylesheet" href="style.css">
+    <title>InclusãoWeb — Projeto de Acessibilidade</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* =========================================================
+           VARIÁVEIS DE CORES VIBRANTES E ESTILOS BASE
+           ========================================================= */
+        :root {
+            --bg-dark: #07090e;
+            --bg-card: #0f172a;
+            --brand-purple: #8b5cf6;
+            --brand-magenta: #ff007f;
+            --brand-cyan: #00f0ff;
+            --brand-yellow: #facc15;
+            --brand-orange: #f97316;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --base-font-size: 16px;
+            
+            --grad-neon: linear-gradient(90deg, var(--brand-cyan), var(--brand-magenta), var(--brand-yellow));
+            --grad-primary: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            text-align: center; /* Centralização padrão de textos */
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        /* Mode Alto Contraste */
+        body.high-contrast {
+            --bg-dark: #000000;
+            --bg-card: #000000;
+            --text-main: #ffff00;
+            --text-muted: #ffffff;
+            --brand-cyan: #00ffff;
+            --brand-magenta: #ff00ff;
+            --brand-yellow: #ffff00;
+            background-image: none !important;
+        }
+
+        body.high-contrast .card,
+        body.high-contrast .plan-card,
+        body.high-contrast .info-card,
+        body.high-contrast .form-container {
+            border: 3px solid #ffff00 !important;
+            box-shadow: none !important;
+        }
+
+        /* =========================================================
+           BARRA DE ACESSIBILIDADE (CENTRALIZADA)
+           ========================================================= */
+        .acessibilidade {
+            background: linear-gradient(90deg, #1e1b4b, #311042, #083344);
+            border-bottom: 2px solid var(--brand-cyan);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .acessibilidade span {
+            color: var(--brand-yellow);
+            font-weight: 800;
+        }
+
+        .acessibilidade button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid var(--brand-cyan);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .acessibilidade button:hover {
+            background: var(--brand-cyan);
+            color: #000;
+            box-shadow: 0 0 10px var(--brand-cyan);
+        }
+
+        /* =========================================================
+           CABEÇALHO / HEADER (CENTRALIZADO)
+           ========================================================= */
+        header {
+            background-color: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid;
+            border-image: var(--grad-neon) 1;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: var(--grad-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--brand-cyan);
+            text-shadow: 0 0 8px var(--brand-cyan);
+        }
+
+        .btn-header {
+            background: var(--grad-primary);
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+        }
+
+        /* =========================================================
+           HERO SECTION (CENTRALIZADO)
+           ========================================================= */
+        .hero-section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, #ffffff, var(--brand-yellow), var(--brand-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 750px;
+            margin: 0 auto 24px auto;
+        }
+
+        .btn-hero {
+            display: inline-block;
+            background: var(--grad-neon);
+            color: #000;
+            padding: 14px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-hero:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(250, 204, 21, 0.8);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 750px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 3px solid var(--brand-purple);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* =========================================================
+           TÍTULOS GLOBAIS DE SEÇÃO
+           ========================================================= */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--brand-cyan), var(--brand-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .tag {
+            color: var(--brand-yellow);
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================================
+           DICAS / PILARES WCAG (CARDS CENTRAIS)
+           ========================================================= */
+        .dicas-section {
+            max-width: 1200px;
+            margin: 70px auto;
+            padding: 0 20px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 26px;
+            border-radius: 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+        }
+
+        .card-purple { border: 2px solid var(--brand-purple); box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
+        .card-purple .card-icon { color: var(--brand-purple); }
+
+        .card-cyan { border: 2px solid var(--brand-cyan); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+        .card-cyan .card-icon { color: var(--brand-cyan); }
+
+        .card-magenta { border: 2px solid var(--brand-magenta); box-shadow: 0 0 15px rgba(255, 0, 127, 0.2); }
+        .card-magenta .card-icon { color: var(--brand-magenta); }
+
+        .card-yellow { border: 2px solid var(--brand-yellow); box-shadow: 0 0 15px rgba(250, 204, 21, 0.2); }
+        .card-yellow .card-icon { color: var(--brand-yellow); }
+
+        /* =========================================================
+           SEÇÃO DE PLANOS — 3 COLUNAS LADO A LADO
+           ========================================================= */
+        .planos-section {
+            max-width: 1200px;
+            margin: 70px auto;
+            padding: 0 20px;
+        }
+
+        /* Layout de 3 colunas para Desktop */
+        .planos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        @media (min-width: 768px) {
+            .planos-grid {
+                grid-template-columns: repeat(3, 1fr); /* Exatamente 3 colunas lado a lado */
+            }
+        }
+
+        .plan-card {
+            background: #0d1322;
+            border-radius: 20px;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border: 2px solid #1e293b;
+        }
+
+        .plan-card.start-plan {
+            border-color: var(--brand-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .plan-card.ultra-plan {
+            border: 3px solid var(--brand-magenta);
+            background: linear-gradient(180deg, #1d0928 0%, #0d1322 100%);
+            box-shadow: 0 0 35px rgba(255, 0, 127, 0.4);
+            transform: scale(1.02);
+        }
+
+        .plan-card.mega-plan {
+            border-color: var(--brand-yellow);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.2);
+        }
+
+        .badge {
+            position: absolute;
+            top: -14px;
+            background: var(--brand-magenta);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 4px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 0 12px var(--brand-magenta);
+        }
+
+        .plan-card h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        .plan-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .plan-card ul {
+            list-style: none;
+            border-top: 1px solid #1f2937;
+            padding-top: 16px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .plan-card li {
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-cyan { background: var(--brand-cyan); color: #000; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
+        .btn-magenta { background: var(--brand-magenta); color: #fff; box-shadow: 0 0 20px rgba(255, 0, 127, 0.6); }
+        .btn-yellow { background: var(--brand-yellow); color: #000; box-shadow: 0 0 15px rgba(250, 204, 21, 0.4); }
+
+        .color-cyan { color: var(--brand-cyan); }
+        .color-magenta { color: var(--brand-magenta); }
+        .color-yellow { color: var(--brand-yellow); }
+
+        /* =========================================================
+           BLOG E DESTAQUES (CENTRALIZADOS)
+           ========================================================= */
+        .info-section {
+            max-width: 1100px;
+            margin: 70px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .info-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-card {
+            background: #0d1322;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #blog {
+            border: 2px solid var(--brand-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        #destaques {
+            border: 2px solid var(--brand-yellow);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.2);
+        }
+
+        .info-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .info-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 16px 0;
+            border: 2px solid var(--brand-cyan);
+        }
+
+        .destaques-list {
+            list-style: none;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .destaques-list li {
+            background: linear-gradient(90deg, #1e1b4b, #2e1065);
+            border-left: 4px solid var(--brand-magenta);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            color: var(--brand-yellow);
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           FORMULÁRIO DE CONTATO (CENTRALIZADO)
+           ========================================================= */
+        .contato-section {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .form-container {
+            background: #0f172a;
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 2px solid var(--brand-purple);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+            text-align: center;
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            background: var(--grad-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--brand-cyan);
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--brand-magenta);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--grad-neon);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+
+        /* =========================================================
+           RODAPÉ
+           ========================================================= */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: #07090e;
+            border-top: 2px solid;
+            border-image: var(--grad-neon) 1;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Mensagem Toast */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            border: 2px solid var(--brand-magenta);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            display: none;
+            z-index: 1000;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 
-    <!--Ferramentas de acessibilidade para o usuário-->
+    <!-- BARRA DE ACESSIBILIDADE -->
     <div class="acessibilidade" role="region" aria-label="Barra de acessibilidade">
-        <span> Acessibilidade: </span>
-        <button id="btn-contrast" onclick="ToggleContrast()">Alto constraste</button>
+        <span><i class="fa-solid fa-universal-access"></i> Acessibilidade:</span>
+        <button id="btn-contrast" onclick="ToggleContrast()">Alto Contraste</button>
         <button id="btn-increase" onclick="ChangeFontSize(1)">A+</button>
         <button id="btn-decrease" onclick="ChangeFontSize(-1)">A-</button>
     </div>
 
+    <!-- CABEÇALHO -->
     <header>
         <div class="header-container">
-        <span class="logo">InclusãoWeb</span>
-        <nav aria-label="Menu principal">
-            <ul>
-                <li> <a href="#sobre">O projeto</a></li>
-                <li> <a href="#dicas">Boas Práticas</a></li>
-                <li> <a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </div>
+            <span class="logo"><i class="fa-solid fa-code"></i> InclusãoWeb</span>
+            <nav aria-label="Menu principal">
+                <ul>
+                    <li><a href="#sobre">O Projeto</a></li>
+                    <li><a href="#dicas">Boas Práticas</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#destaques">Destaques</a></li>
+                    <li><a href="#contato" class="btn-header">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
     <main>
-        <!-- Seção sobre o projeto-->
-        <section id="sobre">
-            <h1>Contruindo a web para todos</h1>
-            <p> A acessibilidade na web garante que pessoas com deficiência visual, auditiva, motora ou cognitiva possam navegar, entender e interagir com os sites de maneira autônoma.</p>
-
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
-          alt="Grupo de jovens estudantes programando juntos em frente a computadores em uma sala de aula moderna."
-          class="card-img">
+        <!-- HERO / SOBRE -->
+        <section id="sobre" class="hero-section">
+            <div class="hero-content">
+                <h1>Construindo a web para todos</h1>
+                <p>A acessibilidade na web garante que pessoas com deficiência visual, auditiva, motora ou cognitiva possam navegar, entender e interagir com os sites de maneira autônoma.</p>
+                <a href="#planos" class="btn-hero">Conhecer Planos</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" 
+                     alt="Grupo de jovens estudantes programando juntos em sala de aula moderna.">
+            </div>
         </section>
 
-          <!-- Seção de Dicas -->
-        <section id="dicas">
-            <h2>Pilares da acessibilidade (WCAG)</h2>
-            <ul>
-                <li><STRONG>Perceptível: </STRONG> Informações e componentes da interface devem ser apresentados de forma que os usuários possam perceber (ex: textos alternativos em imagens).</li>
-                <li><STRONG>Operável: </STRONG>Componentes de interface e navegação devem ser operáveis por teclado e outras tecnologias assistivas</li>
-                <li><STRONG>Compreensível: </STRONG>Informações e a operação da interface devem ser fáceis de entender</li>
-                <li><STRONG>Robusto: </STRONG>O conteúdo deve ser robusto o suficiente para ser interpretado de forma confiável por uma ampla variedade de leitores de tela</li>
-            </ul>
-        </section>
-
-         <!-- ================= PLANOS (PRICING SIMPLES) ================= -->
-  <section id="planos" class="py-20 bg-slate-900 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-black uppercase tracking-widest text-brand-yellow">Planos Flexíveis</span>
-        <h2 class="font-black text-3xl sm:text-5xl text-white mt-2">Escolha o seu plano</h2>
-        <p class="text-slate-400 text-sm sm:text-base mt-2">Sem contratos de fidelidade. Altere quando quiser.</p>
-      </div>
-
-      <!-- Pricing Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-        
-        <!-- Plano Start -->
-        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-7 flex flex-col justify-between hover:border-brand-cyan transition-all">
-          <div>
-            <h3 class="font-extrabold text-2xl text-white">Start</h3>
-            <p class="text-slate-400 text-xs mt-1">Para autônomos e iniciantes.</p>
-            
-            <div class="my-6">
-              <span class="text-3xl font-black text-brand-cyan">R$ 500</span>
-              <span class="text-slate-400 text-xs">/mês</span>
+        <!-- PILARES DA ACESSIBILIDADE -->
+        <section id="dicas" class="dicas-section">
+            <div class="section-title">
+                <h2>Pilares da Acessibilidade (WCAG)</h2>
+                <p>Diretrizes essenciais para garantir uma experiência universal</p>
             </div>
-
-            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Até 3 projetos simultâneos</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Suporte via E-mail</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Relatórios básicos</li>
-              </ul>
-            </div>
-  
-            <button onclick="assinarPlano('Start')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-brand-cyan hover:text-slate-950 font-extrabold text-xs uppercase tracking-wider text-white transition-colors">
-              Assinar Start
-            </button>
-          </div>
-  
-          <!-- Plano Ultra (Destaque Magenta) -->
-          <div class="rounded-2xl bg-slate-950 border-2 border-brand-magenta p-7 flex flex-col justify-between shadow-glow-magenta relative transform md:-translate-y-2">
-            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-brand-magenta text-white font-black text-[10px] uppercase tracking-wider">
-              Mais Popular
-            </span>
-  
-            <div>
-              <h3 class="font-extrabold text-2xl text-white">Ultra</h3>
-              <p class="text-slate-400 text-xs mt-1">Para pequenas e médias equipes.</p>
-              
-              <div class="my-6">
-                <span class="text-4xl font-black text-brand-magenta">R$ 1.500</span>
-                <span class="text-slate-400 text-xs">/mês</span>
-              </div>
-  
-              <ul class="space-y-3 text-xs text-slate-200 border-t border-slate-800 pt-5">
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Projetos ilimitados</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Suporte VIP 24/7</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Acesso total às APIs</li>
-                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-magenta"></i> Relatórios avançados</li>
-              </ul>
-            </div>
-  
-            <button onclick="assinarPlano('Ultra')" class="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-purple hover:brightness-110 font-black text-xs uppercase tracking-wider text-white shadow-md transition-all">
-              Assinar Ultra
-            </button>
-          </div>
-
-          !-- Plano Mega -->
-        <div class="rounded-2xl bg-slate-950 border border-slate-800 p-7 flex flex-col justify-between hover:border-brand-yellow transition-all">
-          <div>
-            <h3 class="font-extrabold text-2xl text-white">Mega</h3>
-            <p class="text-slate-400 text-xs mt-1">Para empresas em expansão.</p>
-            
-            <div class="my-6">
-              <span class="text-3xl font-black text-brand-yellow">R$ 1.000</span>
-              <span class="text-slate-400 text-xs">/mês</span>
-            </div>
-
-            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-5">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Até 15 projetos ativos</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Atendimento dedicado</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Integrações customizadas</li>
-            </ul>
-          </div>
-
-          <button onclick="assinarPlano('Mega')" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-brand-yellow hover:text-slate-950 font-extrabold text-xs uppercase tracking-wider text-white transition-colors">
-            Assinar Mega
-          </button>
-        </div>
-    </div>
-
-</div>
-</section>
-
-         <!-- Seção do Blog -->
-        <section class="blog">
-            <img src="as-7-melhores-ferramentas-para-desenvolvedores-web-1.jpg"
-            class="card-img">
-        <h6> Saiba quais as ferramentas mais úteis para desenvolvedores. </h6>
-        <p> Listamos algumas das ferramentas para turbinar seus trabalho e seus estudos.</p>
-        </section>
-
-         <!-- Seção de Destaques -->
-        <section class="destaques">
-            <h2>Destaques</h2>
-            <p> Ensinamos como criar logotipos de forma eficiente, pois sabemos como eles importam.</p>
-            <ul>
-                <li>🌟 "Facilitando o acesso à informação."</li>
-                <li>🌟 "Juntos por um mundo mais inclusivo."</li>
-            </ul>
-        </section>
-
-            <!-- Seção de Formulário Acessível -->
-        <section id="contato"> 
-            <h2>Fale conosco</h2>
-            <form action="#" method="POST">
-                <div>
-                    <label for="nome">Seu nome completo:</label>
-                    <input type="text" id="nome" name="nome" required aria-required="true">
+            <div class="cards-grid">
+                <div class="card card-purple">
+                    <i class="fa-solid fa-eye card-icon"></i>
+                    <h3>Perceptível</h3>
+                    <p>Informações e componentes devem ser apresentados de forma legível e clara (ex: textos alternativos em imagens).</p>
                 </div>
-        
-                <div>
-                    <label for="email"> Seu E-mail:</label>
-                    <input type="email" id="email" name="email" required aria-required="true">
+                <div class="card card-cyan">
+                    <i class="fa-solid fa-keyboard card-icon"></i>
+                    <h3>Operável</h3>
+                    <p>Componentes e navegação devem ser operáveis por teclado e tecnologias assistivas.</p>
+                </div>
+                <div class="card card-magenta">
+                    <i class="fa-solid fa-brain card-icon"></i>
+                    <h3>Compreensível</h3>
+                    <p>As informações e o funcionamento da interface devem ser fáceis de entender por qualquer pessoa.</p>
+                </div>
+                <div class="card card-yellow">
+                    <i class="fa-solid fa-shield-halved card-icon"></i>
+                    <h3>Robusto</h3>
+                    <p>O conteúdo deve ser interpretado com facilidade por leitores de tela e navegadores modernos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLANOS DE ASSINATURA (3 COLUNAS LADO A LADO) -->
+        <section id="planos" class="planos-section">
+            <div class="section-title">
+                <span class="tag">Planos Flexíveis</span>
+                <h2>Escolha o seu plano</h2>
+                <p>Sem contratos de fidelidade. Altere ou cancele quando quiser.</p>
+            </div>
+
+            <div class="planos-grid">
+                <!-- Plano 1: Start -->
+                <div class="plan-card start-plan">
+                    <div>
+                        <h3>Start</h3>
+                        <p class="subtitle">Para autônomos e iniciantes.</p>
+                        <div class="price color-cyan">R$ 500 <span>/mês</span></div>
+                        <ul>
+                            <li><i class="fa-solid fa-check color-cyan"></i> Até 3 projetos simultâneos</li>
+                            <li><i class="fa-solid fa-check color-cyan"></i> Suporte via E-mail</li>
+                            <li><i class="fa-solid fa-check color-cyan"></i> Relatórios básicos</li>
+                        </ul>
+                    </div>
+                    <button onclick="assinarPlano('Start')" class="btn-plan btn-cyan">Assinar Start</button>
                 </div>
 
-                <div>
-                    <label for="mensagem"> Sua Mensagem ou Sugestão:</label>
-                    <textarea id="mensagem" name="mensagem" rows="4" aria-required="true"></textarea>
+                <!-- Plano 2: Ultra (Destaque Central) -->
+                <div class="plan-card ultra-plan">
+                    <span class="badge">Mais Popular</span>
+                    <div>
+                        <h3>Ultra</h3>
+                        <p class="subtitle">Para pequenas e médias equipes.</p>
+                        <div class="price color-magenta">R$ 1.500 <span>/mês</span></div>
+                        <ul>
+                            <li><i class="fa-solid fa-check color-magenta"></i> Projetos ilimitados</li>
+                            <li><i class="fa-solid fa-check color-magenta"></i> Suporte VIP 24/7</li>
+                            <li><i class="fa-solid fa-check color-magenta"></i> Acesso total às APIs</li>
+                            <li><i class="fa-solid fa-check color-magenta"></i> Relatórios avançados</li>
+                        </ul>
+                    </div>
+                    <button onclick="assinarPlano('Ultra')" class="btn-plan btn-magenta">Assinar Ultra</button>
                 </div>
 
-                <button type="submit" class="submit-btn"> Enviar Mensagem</button>
+                <!-- Plano 3: Mega -->
+                <div class="plan-card mega-plan">
+                    <div>
+                        <h3>Mega</h3>
+                        <p class="subtitle">Para empresas em expansão.</p>
+                        <div class="price color-yellow">R$ 1.000 <span>/mês</span></div>
+                        <ul>
+                            <li><i class="fa-solid fa-check color-yellow"></i> Até 15 projetos ativos</li>
+                            <li><i class="fa-solid fa-check color-yellow"></i> Atendimento dedicado</li>
+                            <li><i class="fa-solid fa-check color-yellow"></i> Integrações customizadas</li>
+                        </ul>
+                    </div>
+                    <button onclick="assinarPlano('Mega')" class="btn-plan btn-yellow">Assinar Mega</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG E DESTAQUES -->
+        <section class="info-section">
+            <div id="blog" class="info-card">
+                <h2 class="color-cyan">Blog</h2>
+                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="Ferramentas para desenvolvedores web">
+                <h3>As 7 melhores ferramentas para desenvolvedores</h3>
+                <p>Listamos algumas das ferramentas mais úteis para turbinar seus trabalhos e estudos no dia a dia.</p>
+            </div>
+
+            <div id="destaques" class="info-card">
+                <h2 class="color-yellow">Destaques</h2>
+                <p>Ensinamos como criar marcas e interfaces eficientes para garantir que todos naveguem sem barreiras.</p>
+                <ul class="destaques-list">
+                    <li>🌟 "Facilitando o acesso à informação para todos."</li>
+                    <li>🌟 "Juntos por uma web verdadeiramente inclusiva."</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO DE CONTATO -->
+        <section id="contato" class="contato-section">
+            <div class="form-container">
+                <h2>Fale Conosco</h2>
+                <form onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="nome">Seu nome completo:</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Seu E-mail:</label>
+                        <input type="email" id="email" name="email" placeholder="seuemail@dominio.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensagem">Sua Mensagem ou Sugestão:</label>
+                        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
                 </form>
+            </div>
         </section>
     </main>
 
+    <!-- RODAPÉ -->
     <footer> 
-        <p>&copy; 2026 Projeto Educacional de Desenvolvimento - Acessibilidade para Todos</p>
+        <p>&copy; 2026 InclusãoWeb — Projeto Educacional de Desenvolvimento & Acessibilidade</p>
     </footer>
 
-    <!-- Script de Controle de Acessibilidade-->
-    <script src="script.js"></script>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast"></div>
+
+    <!-- JAVASCRIPT FUNCIONAL -->
+    <script>
+        // Função de Alto Contraste
+        function ToggleContrast() {
+            document.body.classList.toggle('high-contrast');
+            showToast(document.body.classList.contains('high-contrast') ? "Alto contraste ativado" : "Modo normal ativado");
+        }
+
+        // Função de Alterar Tamanho da Fonte
+        let currentFontSize = 16;
+        function ChangeFontSize(delta) {
+            currentFontSize = Math.min(Math.max(12, currentFontSize + delta), 22);
+            document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+            showToast("Tamanho do texto: " + currentFontSize + "px");
+        }
+
+        // Simulação de Assinatura de Plano
+        function assinarPlano(plano) {
+            showToast("Você selecionou o Plano " + plano + "! Redirecionando...");
+        }
+
+        // Envio de Formulário
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            showToast("Mensagem enviada com sucesso!");
+            event.target.reset();
+        }
+
+        // Exibir Notificação Toast Customizada
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

@@ -1,24 +1,35 @@
-//1. Função para alterar o Alto Contraste 
-function toggleHighContrast () {
+// Função de Alto Contraste
+function ToggleContrast() {
     document.body.classList.toggle('high-contrast');
-    const isHighContrast = document.body.classList.contains('high-contrast');
-    localStorage.setItem('high-contrast', isHighContrast);
+    showToast(document.body.classList.contains('high-contrast') ? "Alto contraste ativado" : "Modo normal ativado");
 }
 
-//2. Funcão para Alterar o Tamanho da Fonte
-let currentSize = 1; //Tamanho inicial da fonte
-function changeFontSize(direction) {
-    currentSize += direction * 0.1; //Incrementa ou decrementa o tamanho da fonte
-    //Limites para Segurança do  layout
-    if (currentSize < 0.8) currentSize = 0.8;
-    if (currentSize < 1.6) currentSize = 1.6;
-
-    document.documentElement.style.fontSize = currentSize + 'rem';
+// Função de Alterar Tamanho da Fonte
+let currentFontSize = 16;
+function ChangeFontSize(delta) {
+    currentFontSize = Math.min(Math.max(12, currentFontSize + delta), 22);
+    document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+    showToast("Tamanho do texto: " + currentFontSize + "px");
 }
 
-// Carregar preferências salva de contraste ao iniciar a página
-window.onload = function() {
-    if(localStorage.getItem('high-contrast') === 'true') {
-        document.body.classList.add('high-contrast');
-    }
-};
+// Simulação de Assinatura de Plano
+function assinarPlano(plano) {
+    showToast("Você selecionou o Plano " + plano + "! Redirecionando...");
+}
+
+// Envio de Formulário
+function handleFormSubmit(event) {
+    event.preventDefault();
+    showToast("Mensagem enviada com sucesso!");
+    event.target.reset();
+}
+
+// Exibir Notificação Toast Customizada
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
